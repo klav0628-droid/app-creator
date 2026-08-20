@@ -51,7 +51,7 @@
             border-radius: 5px;
             font-size: 14px;
         }
-        button {
+        button, .download-btn {
             width: 100%;
             padding: 12px;
             background: #28a745;
@@ -61,16 +61,22 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
             transition: background 0.3s;
         }
-        button:hover {
+        button:hover, .download-btn:hover {
             background: #218838;
         }
         #status {
             margin-top: 15px;
             text-align: center;
+        }
+        .success-text {
+            color: #28a745;
             font-weight: bold;
-            color: #007bff;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -98,7 +104,7 @@
                 <input type="file" id="appIcon" accept="image/*">
             </div>
 
-            <button type="submit">Create APK</button>
+            <button type="submit" id="submitBtn">Create APK</button>
         </form>
 
         <div id="status"></div>
@@ -108,10 +114,15 @@
         document.getElementById('apkForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const status = document.getElementById('status');
-            status.innerText = 'Generating your APK... Please wait.';
+            const appName = document.getElementById('appName').value;
+            
+            status.innerHTML = '<p style="color: #007bff; font-weight: bold;">Building your APK... Please wait 3 seconds.</p>';
             
             setTimeout(() => {
-                status.innerText = 'App created successfully! Download start dynamic integration pending.';
+                status.innerHTML = `
+                    <p class="success-text">🎉 Your APK for "${appName}" is ready!</p>
+                    <a href="#" class="download-btn" onclick="alert('Demo Mode: Connect your backend server to deliver actual .apk file downloads.')">Download APK</a>
+                `;
             }, 3000);
         });
     </script>
