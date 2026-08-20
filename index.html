@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online APK Creator & Builder</title>
+    <title>Direct APK Downloader</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
         body { background-color: #f4f7f6; color: #333; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
@@ -11,7 +11,7 @@
         .container { width: 90%; max-width: 500px; background: #fff; margin: 30px 0; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input[type="text"], input[type="url"], input[type="file"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        input[type="text"], input[type="url"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
         button, .download-btn { width: 100%; padding: 12px; background: #28a745; color: white; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; display: inline-block; margin-top: 10px; }
         button:hover, .download-btn:hover { background: #218838; }
         #status { margin-top: 15px; text-align: center; }
@@ -22,7 +22,7 @@
 
     <header>
         <h1>Free App Creator</h1>
-        <p>Convert your website into a real Android APK in seconds!</p>
+        <p>Download Android APK directly without any redirect!</p>
     </header>
 
     <div class="container">
@@ -37,7 +37,7 @@
                 <input type="url" id="appUrl" placeholder="https://example.com" required>
             </div>
 
-            <button type="submit" id="submitBtn">Create APK</button>
+            <button type="submit">Prepare APK</button>
         </form>
 
         <div id="status"></div>
@@ -48,19 +48,16 @@
             e.preventDefault();
             const status = document.getElementById('status');
             const appName = document.getElementById('appName').value.trim();
-            const appUrl = document.getElementById('appUrl').value.trim();
             
-            status.innerHTML = '<p style="color: #007bff; font-weight: bold;">⚡ Building real Android APK for "' + appName + '"...</p>';
+            status.innerHTML = '<p style="color: #007bff; font-weight: bold;">⚡ Preparing direct download...</p>';
             
             setTimeout(() => {
-                // Background direct engine link for creating real installable APKs
-                const directApkUrl = `https://www.webintoapp.com/store?url=${encodeURIComponent(appUrl)}&name=${encodeURIComponent(appName)}`;
-                
+                // Direct link to the app.apk uploaded in your repository
                 status.innerHTML = `
-                    <p class="success-text">🎉 Custom APK for "${appName}" is ready!</p>
-                    <a href="${directApkUrl}" class="download-btn" target="_blank">Download ${appName}.apk</a>
+                    <p class="success-text">🎉 Your APK is ready!</p>
+                    <a href="app.apk" download="${appName}.apk" class="download-btn">Download ${appName}.apk</a>
                 `;
-            }, 1500);
+            }, 1000);
         });
     </script>
 
