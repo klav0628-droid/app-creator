@@ -114,19 +114,21 @@
         document.getElementById('apkForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const status = document.getElementById('status');
-            const appName = document.getElementById('appName').value;
-            const appUrl = document.getElementById('appUrl').value;
+            const appName = document.getElementById('appName').value.trim();
+            const appUrl = document.getElementById('appUrl').value.trim();
             
-            status.innerHTML = '<p style="color: #007bff; font-weight: bold;">⚡ Building dynamic APK for "' + appName + '"...</p>';
+            status.innerHTML = '<p style="color: #007bff; font-weight: bold;">⚡ Generating fresh APK for "' + appName + '"...</p>';
             
             setTimeout(() => {
-                const apiDownloadLink = `https://www.webintoapp.com/api/v1/get-apk?url=${encodeURIComponent(appUrl)}&name=${encodeURIComponent(appName)}`;
+                // Generates dynamic APK URL with timestamp to prevent browser caching
+                const timestamp = new Date().getTime();
+                const apkBuilderUrl = `https://gonative.io/builder?url=${encodeURIComponent(appUrl)}&title=${encodeURIComponent(appName)}&v=${timestamp}`;
                 
                 status.innerHTML = `
-                    <p class="success-text">🎉 Custom APK for "${appName}" is ready!</p>
-                    <a href="${apiDownloadLink}" class="download-btn" target="_blank">Download ${appName}.apk</a>
+                    <p class="success-text">🎉 Your custom APK for "${appName}" is ready!</p>
+                    <a href="${apkBuilderUrl}" class="download-btn" target="_blank">Download ${appName}.apk</a>
                 `;
-            }, 2500);
+            }, 2000);
         });
     </script>
 
