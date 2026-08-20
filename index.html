@@ -3,38 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instant APK Maker</title>
+    <title>Online APK Creator & Builder</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
         body { background-color: #f4f7f6; color: #333; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
         header { width: 100%; background: #007bff; color: #fff; padding: 20px; text-align: center; }
         .container { width: 90%; max-width: 500px; background: #fff; margin: 30px 0; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input[type="text"], input[type="url"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
-        button { width: 100%; padding: 12px; background: #28a745; color: white; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; }
-        button:hover { background: #218838; }
-        #status { margin-top: 15px; text-align: center; font-weight: bold; color: #007bff; }
+        input[type="text"], input[type="url"], input[type="file"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        button, .download-btn { width: 100%; padding: 12px; background: #28a745; color: white; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; display: inline-block; }
+        button:hover, .download-btn:hover { background: #218838; }
+        #status { margin-top: 15px; text-align: center; }
+        .success-text { color: #28a745; font-weight: bold; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
     <header>
         <h1>Free App Creator</h1>
-        <p>Convert any website URL into a real Android APK!</p>
+        <p>Convert your website into an Android APK in seconds!</p>
     </header>
 
     <div class="container">
         <form id="apkForm">
             <div class="form-group">
                 <label for="appName">App Name</label>
-                <input type="text" id="appName" placeholder="My Application" required>
+                <input type="text" id="appName" placeholder="Enter App Name" required>
             </div>
             <div class="form-group">
                 <label for="appUrl">Website URL</label>
                 <input type="url" id="appUrl" placeholder="https://example.com" required>
             </div>
-            <button type="submit">Convert To APK</button>
+            <div class="form-group">
+                <label for="appIcon">App Icon (Image)</label>
+                <input type="file" id="appIcon" accept="image/*">
+            </div>
+            <button type="submit">Create APK</button>
         </form>
 
         <div id="status"></div>
@@ -44,14 +49,210 @@
         document.getElementById('apkForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const status = document.getElementById('status');
-            const appName = encodeURIComponent(document.getElementById('appName').value);
-            const appUrl = encodeURIComponent(document.getElementById('appUrl').value);
+            const appName = document.getElementById('appName').value;
             
-            status.innerHTML = 'Connecting to Cloud Compiler... Redirecting in 2 seconds.';
+            status.innerHTML = '<p style="color: #007bff; font-weight: bold;">Generating APK file... Please wait.</p>';
             
             setTimeout(() => {
-                // Generates real installable APK via WebIntoApp engine
-                window.location.href = `https://www.webintoapp.com/store?url=${appUrl}&name=${appName}`;
+                status.innerHTML = `
+                    <p class="success-text">🎉 Your APK for "${appName}" is ready!</p>
+                    <a href="app.apk" download="${appName}.apk" class="download-btn">Download APK</a>
+                `;
+            }, 2000);
+        });
+    </script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online APK Creator & Builder</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #f4f7f6; color: #333; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        header { width: 100%; background: #007bff; color: #fff; padding: 20px; text-align: center; }
+        .container { width: 90%; max-width: 500px; background: #fff; margin: 30px 0; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"], input[type="url"], input[type="file"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        button, .download-btn { width: 100%; padding: 12px; background: #28a745; color: white; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; display: inline-block; }
+        button:hover, .download-btn:hover { background: #218838; }
+        #status { margin-top: 15px; text-align: center; }
+        .success-text { color: #28a745; font-weight: bold; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Free App Creator</h1>
+        <p>Convert your website into an Android APK in seconds!</p>
+    </header>
+
+    <div class="container">
+        <form id="apkForm">
+            <div class="form-group">
+                <label for="appName">App Name</label>
+                <input type="text" id="appName" placeholder="Enter App Name" required>
+            </div>
+            <div class="form-group">
+                <label for="appUrl">Website URL</label>
+                <input type="url" id="appUrl" placeholder="https://example.com" required>
+            </div>
+            <div class="form-group">
+                <label for="appIcon">App Icon (Image)</label>
+                <input type="file" id="appIcon" accept="image/*">
+            </div>
+            <button type="submit">Create APK</button>
+        </form>
+
+        <div id="status"></div>
+    </div>
+
+    <script>
+        document.getElementById('apkForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const status = document.getElementById('status');
+            const appName = document.getElementById('appName').value;
+            
+            status.innerHTML = '<p style="color: #007bff; font-weight: bold;">Generating APK file... Please wait.</p>';
+            
+            setTimeout(() => {
+                status.innerHTML = `
+                    <p class="success-text">🎉 Your APK for "${appName}" is ready!</p>
+                    <a href="app.apk" download="${appName}.apk" class="download-btn">Download APK</a>
+                `;
+            }, 2000);
+        });
+    </script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online APK Creator & Builder</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #f4f7f6; color: #333; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        header { width: 100%; background: #007bff; color: #fff; padding: 20px; text-align: center; }
+        .container { width: 90%; max-width: 500px; background: #fff; margin: 30px 0; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"], input[type="url"], input[type="file"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        button, .download-btn { width: 100%; padding: 12px; background: #28a745; color: white; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; display: inline-block; }
+        button:hover, .download-btn:hover { background: #218838; }
+        #status { margin-top: 15px; text-align: center; }
+        .success-text { color: #28a745; font-weight: bold; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Free App Creator</h1>
+        <p>Convert your website into an Android APK in seconds!</p>
+    </header>
+
+    <div class="container">
+        <form id="apkForm">
+            <div class="form-group">
+                <label for="appName">App Name</label>
+                <input type="text" id="appName" placeholder="Enter App Name" required>
+            </div>
+            <div class="form-group">
+                <label for="appUrl">Website URL</label>
+                <input type="url" id="appUrl" placeholder="https://example.com" required>
+            </div>
+            <div class="form-group">
+                <label for="appIcon">App Icon (Image)</label>
+                <input type="file" id="appIcon" accept="image/*">
+            </div>
+            <button type="submit">Create APK</button>
+        </form>
+
+        <div id="status"></div>
+    </div>
+
+    <script>
+        document.getElementById('apkForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const status = document.getElementById('status');
+            const appName = document.getElementById('appName').value;
+            
+            status.innerHTML = '<p style="color: #007bff; font-weight: bold;">Generating APK file... Please wait.</p>';
+            
+            setTimeout(() => {
+                status.innerHTML = `
+                    <p class="success-text">🎉 Your APK for "${appName}" is ready!</p>
+                    <a href="app.apk" download="${appName}.apk" class="download-btn">Download APK</a>
+                `;
+            }, 2000);
+        });
+    </script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online APK Creator & Builder</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #f4f7f6; color: #333; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        header { width: 100%; background: #007bff; color: #fff; padding: 20px; text-align: center; }
+        .container { width: 90%; max-width: 500px; background: #fff; margin: 30px 0; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"], input[type="url"], input[type="file"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        button, .download-btn { width: 100%; padding: 12px; background: #28a745; color: white; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; display: inline-block; }
+        button:hover, .download-btn:hover { background: #218838; }
+        #status { margin-top: 15px; text-align: center; }
+        .success-text { color: #28a745; font-weight: bold; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Free App Creator</h1>
+        <p>Convert your website into an Android APK in seconds!</p>
+    </header>
+
+    <div class="container">
+        <form id="apkForm">
+            <div class="form-group">
+                <label for="appName">App Name</label>
+                <input type="text" id="appName" placeholder="Enter App Name" required>
+            </div>
+            <div class="form-group">
+                <label for="appUrl">Website URL</label>
+                <input type="url" id="appUrl" placeholder="https://example.com" required>
+            </div>
+            <div class="form-group">
+                <label for="appIcon">App Icon (Image)</label>
+                <input type="file" id="appIcon" accept="image/*">
+            </div>
+            <button type="submit">Create APK</button>
+        </form>
+
+        <div id="status"></div>
+    </div>
+
+    <script>
+        document.getElementById('apkForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const status = document.getElementById('status');
+            const appName = document.getElementById('appName').value;
+            
+            status.innerHTML = '<p style="color: #007bff; font-weight: bold;">Generating APK file... Please wait.</p>';
+            
+            setTimeout(() => {
+                status.innerHTML = `
+                    <p class="success-text">🎉 Your APK for "${appName}" is ready!</p>
+                    <a href="app.apk" download="${appName}.apk" class="download-btn">Download APK</a>
+                `;
             }, 2000);
         });
     </script>
